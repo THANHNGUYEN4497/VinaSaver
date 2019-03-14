@@ -1,0 +1,88 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">基本情報</h2>
+</div>
+<form #formEdit="ngForm" (ngSubmit)="editStaff(formEdit.value)">
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="inputDepartment">ユーザー名<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" required #username="ngModel" name="username" [(ngModel)]="staff.username">
+				<small *ngIf="username.errors && (username.dirty || username.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="">メールアドレス<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" required email #email="ngModel" name="email" [(ngModel)]="staff.email">
+				<small *ngIf="email.errors?.required && (email.dirty || email.touched)" class="form-text text-danger">必須</small>
+                <small *ngIf="email.errors?.email && (email.dirty || email.touched)" class="form-text text-danger">メールアドレスは有効なメールアドレスである必要があります</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="">パスワード<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="password" class="form-control" required minlength="6" #password="ngModel" name="password" (input)="validatePasswordInput()" [(ngModel)]="tmpPassword">
+				<small *ngIf="password.errors?.required && (password.dirty || password.touched)" class="form-text text-danger">必須</small>
+				<small *ngIf="password.errors?.minlength && (password.dirty || password.touched)" class="form-text text-danger">パスワードは最低でも6文字必要です</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="">パスワード (確認)<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="password" class="form-control" required #re_password="ngModel" name="re_password" (input)="validatePasswordInput()" [(ngModel)]="tmpRePassword">
+				<small *ngIf="re_password.errors && (re_password.dirty || re_password.touched)" class="form-text text-danger">必須</small>
+				<small *ngIf="!validatePassword" class="form-text text-danger">2つのパスワードが一致しません</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="">電話番号</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="phone_number" [(ngModel)]="staff.phone_number">
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="">事務所</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="office" [(ngModel)]="staff.office">
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="">ポジション<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<select class="form-control" name="position" required #position="ngModel" [(ngModel)]="staff.position">
+					<option *ngFor="let position of listPosition" [selected]="position.id === staff.privilege" value="{{position.id}}"> {{position.position_name}}</option>
+				</select>
+				<small *ngIf="position.errors && (position.dirty || position.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-block mb-2" [disabled]="!formEdit.valid || !validatePassword"><span class="fal fa-file-alt"></span> 保存する
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<div class="form-group">
+				<button type="cancel" class="btn btn-secondary mb-2" routerLink="/company/staff"><i class="fal fa-times"></i> キャンセル
+				</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<app-modal #modal></app-modal>

@@ -1,0 +1,114 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+    <h2 class="col-md-3">企業情報</h2>
+</div>
+<form>
+    <div class="form-row mt-3 mb-3" *ngIf="infors.company_name">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">事業者名</label>
+            <div class="input-group">{{ infors.company_name }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.address">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">住所</label>
+            <div class="input-group">{{ infors.address }}
+                <!--愛媛県松山市◯◯◯123-345-->
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.phone_number">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">会社電話番号</label>
+            <div class="input-group">{{ infors.phone_number }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.email">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">メールアドレス</label>
+            <div class="input-group">{{ infors.email }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.url">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">ホームページ</label>
+            <div class="input-group">{{ infors.url }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.agency_nme">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">代理店名</label>
+            <div class="input-group">{{ infors.agency_nme }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.business_field">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">経営分野</label>
+            <div class="input-group">{{ businessFields.get(infors['business_field']) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.introduction">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">紹介</label>
+            <div class="input-group">{{ infors.business_field }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.image1 || infors.image2 || infors.image3">
+        <div class="col-md-8">
+            <label for="" class="font-weight-bold">画像</label>
+            <div class="row">
+                <div class="col-md-4 mb-3" *ngIf="infors.image1">
+                    <img
+                        src="{{infors.image1}}"
+                        class="img-thumbnail" alt="...">
+                </div>
+                <div class="col-md-4 mb-3" *ngIf="infors.image2">
+                    <img
+                        src="{{infors.image2}}"
+                        class="img-thumbnail" alt="...">
+                </div>
+                <div class="col-md-4 mb-3" *ngIf="infors.image3">
+                    <img
+                        src="{{infors.image3}}"
+                        class="img-thumbnail" alt="...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--GOOGLE MAP-->
+    <div class="form-row" *ngIf="infors.latitude && infors.latitude">
+        <div class="col-md-8 mb-3">
+            <label for="map" class="font-weight-bold">地図 </label>
+            <div class="map" id="map">
+                <agm-map [latitude]="infors.latitude" [longitude]="infors.longitude" [zoom]="zoom">
+                    <agm-marker [latitude]="infors.latitude" [longitude]="infors.longitude"></agm-marker>
+                </agm-map>
+            </div>
+            <br/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 offset-md-2 mb-3">
+            <div class="input-group">
+                <a routerLink="/admin/company" type="submit" class="btn btn-success btn-block mb-2"
+                   onclick="close_window()"><i class="fal fa-backspace"></i> 戻る</a>
+            </div>
+        </div>
+    </div>
+</form>

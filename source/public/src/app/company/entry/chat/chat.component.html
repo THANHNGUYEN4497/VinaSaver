@@ -1,0 +1,78 @@
+<div class="modal fade" role="dialog" id="chat">
+	<div id="progress-loading-style"></div>
+	<div class="modal-dialog modal-lg" style="max-width:1200px">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="pb-2 mt-4 mb-2 border-bottom row">
+					<h2 class="col-md-3">チャット</h2>
+					<h5 class="col-md-5 offset-md-1 user-title"><i class="fal fa-user fa-2x"></i>応募者　{{connector_name}}さん</h5>
+					<div class="col-md-2 offset-md-1">
+						<button type="submit" class="btn btn-dark mb-2 close-btn" data-dismiss="modal" (click)="close()"><i class="fal fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="chat-frame row">
+					<div class="message-frame col-md-8" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+						<div *ngFor="let message of chatHistory;let i = index">
+							<!--未読メッセージ-->
+							<div *ngIf="message?.is_new_first" class="time-line-under-line">
+								<div class="time-line-unread-line-border">
+									<div class="time-line-unread-line-container">
+										<div class="time-line-unread-line-body">
+											<span class="time-line-unread-line-text">未読メッセージ</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<p class="chat-talk" [ngClass]="{'mytalk': message.is_me}">
+								<span class="talk-icon" *ngIf="message.is_me">
+									<img src="{{company_logo}}" alt="myicon" />
+								</span>
+								<span class="talk-icon user-icon" *ngIf="!message.is_me">
+									<i *ngIf="!connector_avatar" class="fal fa-user fa-3x"></i>
+									<img *ngIf="connector_avatar" src="{{connector_avatar}}" alt="myicon" />
+								</span>
+								<span class="talk-content">
+									{{ message.content }}
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="memo-frame col-md-4">
+						<form>
+							<div class="form-row mt-3">
+								<div class="col-md-12">
+									<label for="inputMemo" class="font-weight-bold">メモ</label>
+									<div class="input-group">
+										<textarea [(ngModel)]="note" name="note" rows="16" type="text" class="form-control" id="inputMemo"> </textarea>
+									</div>
+								</div>
+							</div>
+							<div class="form-row mt-3 mb-3">
+								<div class="col-md-12">
+									<div class="input-group">
+										<button type="submit" class="btn btn-success btn-block mb-2" (click)="saveNote()"><span class="fal fa-file-alt"></span>
+											保存
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-8 mb-3">
+						<form>
+							<div class="input-group">
+								<input (keydown)="keyDownSendMessage($event)" type="text" class="form-control" placeholder="ここにメッセージを入力"
+								 aria-describedby="basic-addon2" name="message_content" [(ngModel)]="formChat.message_content">
+								<div *ngIf="formChat.message_content" class="input-group-append" (click)="sendMessage()">
+									<span class="input-group-text"><i class="fal fa-paper-plane"></i> 送信</span>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-modal #modal></app-modal>

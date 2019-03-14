@@ -1,0 +1,99 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3" *ngIf="movedTo === MovedTo.ApplicantDetail">応募者詳細</h2>
+	<h2 class="col-md-3" *ngIf="movedTo === MovedTo.Determine">選考</h2>
+</div>
+<form #form="ngForm" (ngSubmit)="accept(form.value)">
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">名前</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.username}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">性別</p>
+		</div>
+		<div class="col-md-3">
+		    <span *ngIf="applicant.gender == 1">男性</span><span *ngIf="applicant.gender == 2">女性</span>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">住所</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.address}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">電話番号</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.phone_number}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">メールアドレス</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.email}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">生年月日</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{(applicant.birthday !== null) ? (applicant.birthday*1000 | date: 'yyyy年MM月dd日') : ""}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">応募日</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{(applicant.created_at !== null) ? (applicant.created_at*1000 | date: 'yyyy年MM月dd日') : ""}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">紹介者</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.connector_username}}</p>
+		</div>
+    </div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="" class="font-weight-bold">メモ</label>
+			<div class="input-group">
+				<textarea type="tex" rows="5" class="form-control" id=""
+				placeholder="" name="note" ngModel></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mb-3">
+		<div class="col-md-2">
+			<div class="input-group">
+				<button type="submit" *ngIf="movedTo === MovedTo.Determine && applicant.status < 1" class="btn btn-success btn-block mb-2"><i class="fal fa-user-plus"></i> 選考開始
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2 offset-md-1">
+			<div class="input-group">
+				<button type="button" *ngIf="movedTo === MovedTo.Determine && applicant.status == 0" class="btn btn-danger btn-block mb-2" (click)="ignore()"><i class="fal fa-user-minus"></i> 不採用
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2 offset-md-1">
+	        <div class="input-group">
+                <button type="submit" *ngIf="movedFrom === MoveFrom.Applicants" class="btn btn-success btn-block mb-2" routerLink="/company/job/{{jobId}}/applicant"><i class="fal"></i> 戻る</button>
+                <button type="submit" *ngIf="movedFrom === MoveFrom.NewApplicants" class="btn btn-success btn-block mb-2" routerLink="/company/new-applicants"><i class="fal"></i> 戻る</button>
+	        </div>
+        </div>
+	</div>
+</form>

@@ -1,0 +1,95 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+    <h2 class="col-md-3">企業情報</h2>
+</div>
+
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-2">
+        <label for="inputIndustryType" class="font-weight-bold">事業者名</label>
+        <div class="input-group">{{company.company_name}}</div>
+    </div>
+</div>
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-4">
+        <label for="inputOfficeName" class="font-weight-bold">住所</label>
+        <div class="input-group">{{company.address}}</div>
+    </div>
+</div>
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-8">
+        <label for="inputTitle" class="font-weight-bold">会社電話番号</label>
+        <div class="input-group">{{company.phone_number}}</div>
+    </div>
+</div>
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-4">
+        <label for="inputJobType" class="font-weight-bold">メールアドレス</label>
+        <div class="input-group">{{company.email}}</div>
+    </div>
+</div>
+<div class="form-row mb-3">
+    <div class="col-md-8">
+        <label for="inputWork" class="font-weight-bold">ホームページ</label>
+        <div class="input-group">{{company.url}}</div>
+    </div>
+</div>
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-4">
+        <label for="inputSalary" class="font-weight-bold">代理店名</label>
+        <div class="input-group">{{company.agency_name}}</div>
+    </div>
+</div>
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-4">
+        <label for="inputWorkingTime" class="font-weight-bold">経営分野</label>
+        <div class="input-group">{{company.business_name}}</div>
+    </div>
+</div>
+<div class="form-row mt-3 mb-3">
+    <div class="col-md-4">
+        <label for="inputWorkingTime" class="font-weight-bold">紹介文</label>
+        <div class="input-group">{{company.introduction}}</div>
+    </div>
+</div>
+<div class="form-row" *ngIf="company?.images?.length > 0">
+    <div class="col-md-4">
+        <label class="font-weight-bold">画像</label>
+    </div>
+</div>
+<div class="form-row" *ngIf="company?.images?.length > 0">
+    <div class="col-md-2 mb-3" *ngFor="let image of company?.images">
+        <div class="preview-div">
+            <img src="{{image.path}}" class="job-image">
+        </div>
+    </div>
+</div>
+<div class="form-row" *ngIf="company?.videos?.length > 0">
+    <div class="col-md-4">
+        <label class="font-weight-bold">ビデオ</label>
+    </div>
+</div>
+<div class="form-row" *ngIf="company?.videos?.length > 0">
+    <div class="col-md-3 mb-3" *ngFor="let video of company?.videos">
+        <div class="preview-div">
+            <video class="" controls width="300" height="300" src="{{video.path}}"></video>
+        </div>
+    </div>
+</div>
+<div class="form-row mt-3" *ngIf="company.latitude && company.longitude">
+    <div class="col-md-12">
+        <label for="map" class="font-weight-bold">地図</label>
+    </div>
+    <div class="col-md-8" id="map">
+        <agm-map class="map" [latitude]="company.latitude" [longitude]="company.longitude" [zoom]="zoom">
+            <agm-marker [latitude]="company.latitude" [longitude]="company.longitude"></agm-marker>
+        </agm-map>
+    </div>
+</div>
+<div class="form-row mt-5">
+    <div class="col-md-2 mb-3" *ngIf="privilege == 1">
+        <div class="input-group">
+            <button class="btn btn-warning btn-block mb-2" routerLink="/company/info/edit"><span
+                class="fal fa-edit"></span> 編集
+            </button>
+        </div>
+    </div>
+</div>

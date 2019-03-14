@@ -1,0 +1,23 @@
+<form class="form-signin text-center" #loginForm="ngForm" (ngSubmit)="login()">
+    <img class="mb-4" src="assets/img/logo.png" alt="" width="200">
+    <label for="inputEmail" class="sr-only">メールアドレス</label>
+    <input type="text" id="inputEmail" name="inputEmail" [(ngModel)]="admin.email"
+     class="form-control" placeholder="ユーザー名" required autofocus #inputEmail="ngModel">
+    <div *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)" class="alert alert-danger">
+        <div *ngIf="inputEmail.errors.required">
+            メールアドレスが必要です
+        </div>
+    </div>
+    <label for="inputPassword" class="sr-only">パスワード</label>
+    <input type="password" id="inputPassword" name="inputPassword" [(ngModel)]="admin.password"
+     class="form-control" placeholder="パスワード" required #inputPassword="ngModel">
+    <div *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)" class="alert alert-danger">
+        <div *ngIf="inputPassword.errors.required">
+            パスワードが必要です
+        </div>
+    </div>
+    <button class="btn btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">
+        <i data-feather="log-in"></i> ログイン
+    </button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2018-2018</p>
+</form>

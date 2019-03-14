@@ -1,0 +1,81 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-4">カード情報登録</h2>
+</div>
+<form  #formAdd="ngForm" (ngSubmit)="addCredit(formAdd.value)">
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">銀行の種類</label>
+			<div class="input-group">
+				<select class="form-control" name="bank_type" ngModel>
+					<option value="1"> bank 1</option>
+					<option value="2"> bank 2</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">カテゴリー</label>
+			<div class="input-group">
+				<select class="form-control" name="account_type" ngModel>
+					<option value="1"> account type 1</option>
+					<option value="2"> account type 2</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">カード番号</label>
+			<div class="input-group">
+				<input type="number" class="form-control" name="card_number" ngModel>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">支店コード</label>
+			<div class="input-group">
+				<input type="number" class="form-control" name="branch_code" ngModel>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">セキュリティコード</label>
+			<div class="input-group">
+				<input type="text" class="form-control" name="security_code" ngModel>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">苗字</label>
+			<div class="input-group">
+				<input type="text" class="form-control" name="last_name" ngModel>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">ファーストネーム</label>
+			<div class="input-group">
+				<input type="text" class="form-control" name="first_name" ngModel>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<div class="input-group">
+				<button type="submit" class="btn btn-success btn-block mb-2"><span class="fal fa-file-alt"></span> 保存
+				</button>
+			</div>
+		</div>
+		<div class="col-md-1 mb-3">
+			<div class="input-group">
+				<button type="cancel" class="btn btn-secondary mb-2" routerLink="/company/credit"><i class="fal fa-times"></i> キャンセル
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

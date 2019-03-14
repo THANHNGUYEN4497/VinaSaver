@@ -1,0 +1,28 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">チャット一覧</h2>
+</div>
+
+<div class="chat">
+	<table>
+		<tbody>
+			<tr *ngFor="let chatId of chats['ids']" data-toggle="modal" data-target="#chat" (click)="chat(chatId)">
+				<td class="td1"><img class="avatar" src="{{chats[chatId]['profile']['avatar']}}" alt="" /></td>
+				<td class="td2">
+					<span class="username">{{chats[chatId]['profile']['username']}}</span> <br />
+					<span>{{chats[chatId]['profile']['job_title']}}</span>
+				</td>
+				<td class="td3">
+					<i class="fal fa-comment text-danger float-right">新着メッセージ！</i>
+					<br />
+					<span *ngFor="let chat of chats[chatId]['chat'];">{{chat.message_lastest_not_seen}}<br /></span>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<!--nav class="float-right">
+    <pagination-controls *ngIf="total > 0" previousLabel="" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+    </pagination-controls>
+  </nav-->
+</div>
+<app-chat #modal_chat></app-chat>

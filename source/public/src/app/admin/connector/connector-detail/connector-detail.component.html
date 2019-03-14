@@ -1,0 +1,74 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+    <h2 class="col-md-3">コネクター情報</h2>
+</div>
+<form>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-4">
+            <label class="font-weight-bold">メールアドレス</label>
+            <div class="input-group">{{data?.email}}</div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-4">
+            <label class="font-weight-bold">名前</label>
+            <div class="input-group">{{data?.username}} </div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-4">
+            <label class="font-weight-bold">ふりがな</label>
+            <div class="input-group">{{data?.username_phonetic }} </div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-4">
+            <label class="font-weight-bold">性別</label>
+            <div class="input-group">{{data?.gender ==1 ? '女性' :'男性'}}</div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-4">
+            <label class="font-weight-bold">電話番号</label>
+            <div class="input-group">{{data?.phone_number}}</div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-4">
+            <label class="font-weight-bold">生年月日</label>
+            <div class="input-group">{{ (data?.birthday !== null) ? (data.birthday *1000 | date: 'yyyy年MM月dd日') : "" }}</div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-8">
+            <label class="font-weight-bold">現在の職業</label>
+            <div class="input-group">
+                {{data?.current_work}}
+            </div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-8">
+            <label class="font-weight-bold">現在の勤め先</label>
+            <div class="input-group">
+                {{data?.current_work_place}}
+            </div>
+        </div>
+    </div>
+    <div class="form-row mt-3 mb-3">
+        <div class="col-md-8">
+            <label class="font-weight-bold">紹介コネクターコード</label>
+            <div class="input-group">
+                {{data?.connector_code}}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 offset-md-2 mb-3">
+            <div class="input-group">
+                <a routerLink="/admin/connector" type="submit" class="btn btn-success btn-block mb-2" onclick="close_window()"><i
+                        class="fal fa-backspace"></i> 戻る</a>
+            </div>
+        </div>
+    </div>
+</form>

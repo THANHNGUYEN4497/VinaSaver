@@ -1,0 +1,13 @@
+<main class="text-center">
+	<form class="form-signin" #formlogin="ngForm" (ngSubmit)=login(formlogin.value)>
+        <img class="mb-4" src="assets/img/logo.png" alt="" width="200">
+		<label for="inputLoginId" class="sr-only">Email</label>
+		<input type="text" id="inputLoginId" name="email" class="form-control" placeholder="Eメール" required autofocus ngModel>
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" id="inputPassword" name="password" class="form-control" placeholder="パスワード" required ngModel>
+		<button class="btn btn-primary btn-block" type="submit" id="loginBtnCompany">
+		<i class="fal fa-sign-in-alt"></i> ログイン
+		</button>
+		<p class="mt-5 mb-3 text-muted">&copy; 2018-2018</p>
+	</form>
+</main>

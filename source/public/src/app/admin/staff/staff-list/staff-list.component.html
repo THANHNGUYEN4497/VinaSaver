@@ -1,0 +1,78 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+    <h2>絞り込み条件</h2>
+</div>
+<form (ngSubmit)="search()">
+    <div class="form-row">
+        <div class="col-md-3 mb-3">
+            <label for="keyword">キーワード</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="keyWord" placeholder="" [formControl]="keyWord"
+                       name="keyWord">
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="keyword">電話番号</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="phone_number" placeholder="" [formControl]="phoneNumber"
+                       name="phone_number">
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="position">役職</label>
+            <div class="input-group">
+                <select class="form-control" id="position" [formControl]="position" name="position">
+                    <option *ngFor="let position of positions | keyvalue" [ngValue]="position.key">{{ position.value }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label>&nbsp;</label>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary mb-2"><i class="fal fa-search"></i> 絞り込む</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="pb-2 mt-4 mb-2">
+    <h2>スタッフ一覧</h2>
+</div>
+<div class="table-responsive">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <app-pagination #pagination (eventGetData)="search($event)"></app-pagination>
+        </ul>
+    </nav>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>氏名</th>
+            <th>役職</th>
+            <th>電話番号</th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of paginationComponent.items">
+            <td>{{item.id}}</td>
+            <td>{{item.username}}</td>
+            <td>{{ positions.get(item['privilege']) }}</td>
+            <td>{{item.phone_number}}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm"
+                        (click)="detail(item.id)"><i class="fal fa-inbox"></i> 詳細
+                </button>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <app-pagination #pagination2 (eventGetData)="search($event)"></app-pagination>
+        </ul>
+    </nav>
+</div>

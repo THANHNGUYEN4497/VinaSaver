@@ -1,0 +1,82 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">絞り込み条件</h2>
+</div>
+<form #formSearchStaff="ngForm" (submit)="search(formSearchStaff.value)">
+	<div class="form-row">
+		<div class="col-md-3 mb-3">
+			<label for="">キーワード</label>
+			<div class="input-group">
+				<input type="text" class="form-control" ngModel name="keyword">
+			</div>
+		</div>
+		<div class="col-md-3 mb-3">
+			<label for="">電話番号</label>
+			<div class="input-group">
+				<input type="text" class="form-control" ngModel name="phone_number">
+			</div>
+		</div>
+		<div class="col-md-3 mb-3">
+			<label for="">役職</label>
+			<div class="input-group">
+				<select class="form-control" name="position" ngModel>
+					<option value="">役職を選択してください。</option>
+					<option *ngFor="let position of listPosition" value="{{position.id}}"> {{position.position_name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label>操作</label>
+			<div class="input-group">
+				<button type="submit" class="btn btn-primary mb-2"><span class="fal fa-search"></span> 絞り込む</button>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="pb-2 mt-4 mb-2">
+	<h2>スタッフ一覧</h2>
+</div>
+<div class="table-responsive">
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" autoHide="true" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>ユーザー名</th>
+				<th>事業所</th>
+				<th>役職</th>
+				<th>メール</th>
+				<th>電話番号</th>
+				<th>
+					<button type="button" class="btn btn-success btn-sm"
+					routerLink="/company/staff/add"><i class="far fa-plus"></i>
+					新規登録
+					</button>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let staff of listStaff | paginate: { itemsPerPage: perPage, currentPage: currentPage, totalItems: maxItem}; let i = index">
+				<td>{{i + 1}}</td>
+				<td>{{staff.username}}</td>
+				<td>{{staff.office}}</td>
+				<td>{{staff.position_name}}</td>
+				<td>{{staff.email}}</td>
+				<td>{{staff.phone_number}}</td>
+				<td>
+					<button type="button" class="btn btn-primary btn-sm"
+					routerLink="/company/staff/edit/{{staff.id}}"><i class="fal fa-edit"></i> 編集</button>
+					<button type="button" class="btn btn-danger btn-sm" *ngIf="currentUserId != staff.id" (click)="toggleModalDelete(staff.id)"><i class="fal fa-backspace"></i> 削除</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" autoHide="true" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+</div>
+
+<app-modal #modal (confirmEvent)="confirmResponse($event)"></app-modal>

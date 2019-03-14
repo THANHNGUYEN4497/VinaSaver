@@ -1,0 +1,89 @@
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+			<div id="progress-loading-style"></div>
+			<div class="sidebar-sticky" id="companyHome">
+				<a routerLink="/company/job" class="sidebar-logo d-flex justify-content-between align-items-center px-3 mb-1 text-muted">{{companyName}}</a>
+				<div class="nav flex-column mt-3 mb-4">
+					<div class="nav-item">
+						<!--todo ユーザー個人の編集画面へ-->
+						<a class="nav-link" routerLink="/company/job">
+							<img src="assets/img/dummy-company.png" class="img-logo" alt="会社ロゴ">{{username}}
+						</a>
+					</div>
+				</div>
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted">
+					<span>求人</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/company/job" routerLinkActive="active">
+							<i class="fal fa-file-alt"></i>
+							掲載求人情報
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" [class.text-danger]="newApplicantNumber != 0" routerLink="/company/new-applicants" routerLinkActive="active">
+							<span class="fal fa-user-plus"></span>
+							新着応募！{{newApplicantNumber}}件							
+						</a>
+					</li>
+					<li class="nav-item">
+						<a  class="nav-link text-danger" routerLink="/company/chat" routerLinkActive="active">
+							<span><i class="fal fa-comment"></i>新着メッセージ！{{total}}件</span>
+						</a>
+					</li>
+				</ul>
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted" *ngIf="privilege == 1">
+					<span>スタッフ</span>
+				</h6>
+				<ul class="nav flex-column" *ngIf="privilege == 1">
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/company/staff" routerLinkActive="active">
+							<i class="fal fa-user-friends"></i>
+							スタッフ管理
+						</a>
+					</li>
+				</ul>
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>決済履歴</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/company/settlement" routerLinkActive="active">
+							<i class="fal fa-list"></i>
+							一覧
+						</a>
+					</li>
+				</ul>
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>設定</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/company/info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+							<i class="fal fa-cog"></i>
+							企業情報
+						</a>
+					</li>
+					<!-- <li class="nav-item">
+						<a class="nav-link" routerLink="/company/credit" routerLinkActive="active">
+							<i class="fal fa-credit-card-blank"></i>
+							クレジット情報
+						</a>
+					</li> -->
+					<li class="nav-item">
+						<a class="nav-link" href="#" (click)="logout($event)">
+							<i class="fal fa-sign-out-alt"></i>
+							ログアウト
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+			<router-outlet></router-outlet>
+		</main>
+	</div>
+</div>

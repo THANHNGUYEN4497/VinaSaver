@@ -1,0 +1,34 @@
+<div class="pb-2 mt-4 mb-2">
+	<h2>クレジット情報</h2>
+</div>
+<div class="">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>クレジットカード名</th>
+				<th>クレジットカード番号</th>
+				<th>タイプ</th>
+				<th>
+					<button type="button" class="btn btn-success btn-sm"
+					routerLink="/company/credit/add"><i class="far fa-plus"></i>
+					新規登録
+					</button>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let credit of credits; let i = index">
+				<td>{{ i + 1}}</td>
+				<td>{{credit.first_name}} {{credit.last_name}}</td>
+				<td><span *ngIf="credit.card_number">XXXX-XXXX-XXXX-{{credit.card_number}}</span></td>
+				<td>{{credit.bank_type}}</td>
+				<td>
+					<button type="button" class="btn btn-primary btn-sm"
+					routerLink="/company/credit/edit/{{credit.id}}"><i class="fal fa-edit"></i> 編集</button>
+					<button type="button" class="btn btn-danger btn-sm" (click)="delete(credit.id)"><i class="fal fa-backspace"></i> 削除</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

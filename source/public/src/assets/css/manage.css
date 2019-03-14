@@ -1,0 +1,464 @@
+html,
+body {
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, "游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+body.signin {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+
+/*
+ * Signin
+ */
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 150px auto; 
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    /*-bottom: 10px;*/
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signin button {
+    margin-top: 10px;
+}
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 12px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #999;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-logo {
+    font-size: 2.0rem;
+    text-transform: uppercase;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/*
+ * Utilities
+ */
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.form-horizontal-row {
+    height: 50px;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0px;
+}
+
+.map {
+    height: 350px;
+}
+
+.login-form {
+    width: 390px;
+    border: solid 1px #cccccc;
+    background-color: white;
+	border-radius: 6px;
+}
+
+.no-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.login-form form {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.login-title {
+    font-family: 'Exo', sans-serif;
+    text-align: center;
+    color: white;
+    background-color: #007bff;
+    padding-top: 12px;
+    padding-bottom: 12px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.login-userinput {
+    margin-bottom: 10px;
+}
+
+.login-button {
+    margin: 10px auto;
+}
+
+.login-options {
+    margin-top: 12px;
+}
+
+.login-forgot {
+    float: right;
+}
+
+.login-body {
+    padding-top: 250px;
+    background-color: #cccccc;
+}
+
+#resource-slider {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 13em;
+    margin: auto;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #DDD;
+    overflow: hidden;
+}
+
+#resource-slider .arrow {
+    cursor: pointer;
+    position: absolute;
+    width: 2em;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    background: transparent;
+}
+
+#resource-slider .arrow:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#resource-slider .arrow:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 0.75em;
+    height: 0.75em;
+    margin: auto;
+    border-style: solid;
+}
+
+#resource-slider .prev {
+    left: 0;
+    bottom: 0;
+}
+
+#resource-slider .prev:before {
+    left: 0.25em;
+    border-width: 3px 0 0 3px;
+    border-color: #333 transparent transparent #333;
+    transform: rotate(-45deg);
+}
+
+#resource-slider .next {
+    right: 0;
+    bottom: 0;
+}
+
+#resource-slider .next:before {
+    right: 0.25em;
+    border-width: 3px 3px 0 0;
+    border-color: #333 #333 transparent transparent;
+    transform: rotate(45deg);
+}
+
+#resource-slider .resource-slider-frame {
+    position: absolute;
+    top: 0;
+    left: 2em;
+    right: 2em;
+    bottom: 0;
+    border-left: 0.25em solid transparent;
+    border-right: 0.25em solid transparent;
+    overflow: hidden;
+}
+
+#resource-slider .resource-slider-item {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    height: 100%;
+}
+
+#resource-slider .resource-slider-inset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0.5em 0.25em;
+    overflow: hidden;
+}
+
+@media ( max-width: 60em ) {
+    #resource-slider .resource-slider-item {
+        width: 33.33%;
+    }
+    #resource-slider {
+        height: 16em;
+    }
+}
+
+@media ( max-width: 45em ) {
+    #resource-slider .resource-slider-item {
+        width: 50%;
+    }
+}
+
+@media ( max-width: 30em ) {
+    #resource-slider .resource-slider-item {
+        width: 100%;
+    }
+    #resource-slider {
+        height: 19em;
+    }
+}
+
+.table .btn{
+    margin: 0 2px;
+}
+
+.ngx-pagination{
+    text-align: right;
+}
+
+.ngx-pagination a, .ngx-pagination button{
+    padding: .5rem .75rem!important;
+    margin-left: -2px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.ngx-pagination .disabled{
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+    padding: 0px!important;
+    margin-left: -2px;
+    line-height: 1.25;
+}
+
+.ngx-pagination .current {
+    cursor: default;
+    background-color: #007bff!important;
+    padding: .5rem .75rem!important;
+    margin-left: -2px;
+    line-height: 1.25;
+    border: 1px solid #007bff;
+}
+
+.ngx-pagination .pagination-previous a::before, .ngx-pagination .pagination-previous.disabled::before{
+    margin-right: 0px!important;
+    color: #6c757d;
+}
+
+.ngx-pagination .pagination-next a::after, .ngx-pagination .pagination-next.disabled::after{
+    margin-left: 0px!important;
+    color: #6c757d;
+}
+
+.pagination-previous.disabled::before{
+    border: 1px solid #dee2e6;
+    padding: .5rem .75rem!important;
+    line-height: 1.25;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    color:#cacaca!important;
+}
+
+.pagination-next.disabled::after{
+    border: 1px solid #dee2e6;
+    padding: .5rem .75rem!important;
+    line-height: 1.25;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    color:#cacaca!important;
+}
+
+.ngx-pagination .pagination-previous a{
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.ngx-pagination .pagination-next a{
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.profile img{
+    float: left;
+}
+
+.profile .username{
+    float: left;
+    font-size: 11pt;
+    margin-left: 10px;
+    color: #fff;
+}
+
+.profile .username p{
+    margin-top: 5px;
+}
+
+.profile .username p i{
+    margin-right: 3px;
+    font-size: 6pt;
+}
+.profile .username p i span{
+    color: #fff;
+}
+.profile .username p i.fa-circle:before{
+    margin-right:3px
+}
+agm-map {
+    height: 350px;
+    width: 600px;
+}
+.job-image{
+    width: 200px;
+    height: 200px;
+}
+.preview-div {
+    width: 200px;
+    height: 200px;
+    background-color: #e8e8e8;
+    border-radius: 7px;
+    vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+}

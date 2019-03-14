@@ -1,0 +1,87 @@
+.table .btn{
+	margin: 0 2px;
+}
+
+.map {
+    height: 350px;
+}
+.ngx-pagination{
+    text-align: right;
+}
+.ngx-pagination li{
+    color: #007bff!important;
+}
+.ngx-pagination a, .ngx-pagination button{
+    padding: .5rem .75rem!important;
+    margin-left: -2px;
+    line-height: 1.25;
+    color: #007bff!important;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.ngx-pagination a:focus {
+	outline: none;
+}
+.ngx-pagination a:hover {
+	text-decoration: none;
+}
+.ngx-pagination .disabled{
+    color: #6c757d!important;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+    padding: 0px!important;
+    margin-left: -2px;
+    line-height: 1.25;
+}
+
+.ngx-pagination .current {
+    cursor: default;
+    color: #fff!important;
+    background-color: #007bff!important;
+    padding: .5rem .75rem!important;
+    margin-left: -2px;
+    line-height: 1.25;
+    border: 1px solid #007bff;
+}
+
+.ngx-pagination .pagination-previous a::before, .ngx-pagination .pagination-previous.disabled::before {
+    margin-right: 0px!important;
+    color: #007bff!important;
+}
+
+.ngx-pagination .pagination-next a::after, .ngx-pagination .pagination-next.disabled::after {
+    margin-left: 0px!important;
+    color: #007bff!important;
+}
+.pagination-previous.disabled::before{
+    border: 1px solid #dee2e6;
+    padding: .5rem .75rem!important;
+    line-height: 1.25;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    color:#cacaca!important;
+}
+
+.pagination-next.disabled::after{
+    border: 1px solid #dee2e6;
+    padding: .5rem .75rem!important;
+    line-height: 1.25;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    color:#cacaca!important;
+}
+
+.ngx-pagination .pagination-previous a{
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.ngx-pagination .pagination-next a{
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+.ngx-pagination .pagination-previous.disabled::before, .ngx-pagination .pagination-next.disabled::after {
+    color: #6c757d!important;
+}

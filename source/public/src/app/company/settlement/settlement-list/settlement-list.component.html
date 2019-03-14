@@ -1,0 +1,75 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-4">絞り込み条件</h2>
+</div>
+<form #form="ngForm" (submit)="search(form.value)">
+	<div class="form-row">
+		<div class="col-md-5 mb-3">
+			<label for="inputDatetimeStart">日時</label>
+			<div class="input-group">
+                <my-date-picker name="startDate" class="col-md-5" id="start_date" [options]="myDatePickerOptions"
+                    (dateChanged)="onStartDateChanged($event)"></my-date-picker>
+                <div style="display: flex;align-items:center">〜</div>
+                <my-date-picker name="endDate" class="col-md-5" id="end_date" [options]="myDatePickerOptions"
+                    (dateChanged)="onEndDateChanged($event)"></my-date-picker>
+            </div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label for="keyword">お客様氏名</label>
+			<div class="input-group">
+				<input type="text" class="form-control" id="keyword" name="keyword" ngModel>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label>操作</label>
+			<div class="input-group">
+				<button type="submit" class="btn btn-primary mb-2"><i data-feather="search"></i> 絞り込む</button>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="pb-2 mt-4 mb-2 border-bottom">
+	<h2>決済履歴</h2>
+</div>
+<div class="table-responsive">
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>日時</th>
+				<th>お客様氏名</th>
+				<th style="width: 500px;">内容</th>
+				<th>金額</th>
+				<th>状況</th>
+				<th *ngIf="privilege == 1"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let payment of listPayment | paginate: { itemsPerPage: perPage, currentPage: currentPage, totalItems: maxItem}; let i = index">
+				<td>{{i + indexElement + 1}}</td>
+				<td>{{(payment.created_at) ? (payment.created_at*1000 | date: 'yyyy年MM月dd日') : ""}}</td>
+				<td>{{payment.connector_username}}</td>
+				<td>{{payment.content}}</td>
+				<td>{{payment.amount}}円</td>
+				<td>
+					<span *ngIf="payment.status">成功</span>
+					<span *ngIf="!payment.status">失敗した <button class="btn btn-sm btn-primary" (click)="updateStatus(payment.id)" [disabled]="privilege != 1">送信</button></span>
+				</td>
+				<td *ngIf="privilege == 1">
+					<button type="button" class="btn btn-danger btn-sm" (click)="toggleModalDelete(payment.id)">
+					<i class="fal fa-backspace"></i> 削除
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+</div>
+
+<app-modal #modal (confirmEvent)="confirmDelete($event)"></app-modal>

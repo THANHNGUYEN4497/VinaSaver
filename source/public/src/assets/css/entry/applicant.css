@@ -1,0 +1,18 @@
+/**
+チャット新着通知
+ */
+.btn-chat {
+    position: relative;
+}
+
+.new-info {
+    position: absolute;
+    top: -.8em;
+    right: -.5em;
+    color: white;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 1em;
+    background-color: red;
+}

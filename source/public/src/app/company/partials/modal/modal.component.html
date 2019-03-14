@@ -1,0 +1,18 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#modalCenter" #open>
+Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade show" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenter" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p [innerHTML]="message"></p>
+            </div>
+            <div class="p-2 border-top text-right">
+                <button type="button" class="btn btn-primary m-2" data-dismiss="modal" (click)="confirmEventRespone(true)">Ok</button>
+                <button type="button" class="btn btn-secondary m-2" data-dismiss="modal" (click)="confirmEventRespone(false)">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>

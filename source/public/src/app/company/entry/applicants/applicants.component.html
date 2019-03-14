@@ -1,0 +1,163 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">求人概要</h2>
+</div>
+<div class="form-row">
+	<div class="col-md-1 mb-3">
+		<div class="card">
+			<div class="card-header">
+				ID
+			</div>
+			<div class="card-body">
+				{{job.id}}&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3">
+		<div class="card">
+			<div class="card-header">
+				事業所
+			</div>
+			<div class="card-body">
+				{{job.store_name}}&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3">
+		<div class="card">
+			<div class="card-header">
+				タイトル
+			</div>
+			<div class="card-body">
+				{{job.introduction_title}}&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2 mb-3">
+		<div class="card">
+			<div class="card-header">
+				カテゴリー
+			</div>
+			<div class="card-body">
+				{{job.category_name}}&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2 mb-3">
+		<div class="card">
+			<div class="card-header">
+				職種
+			</div>
+			<div class="card-body">
+				{{job.job_category_name}}&nbsp;
+			</div>
+		</div>
+	</div>
+</div>
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">絞り込み条件</h2>
+</div>
+<form #form="ngForm" (submit)="search(form.value)">
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<label for="searchFromGender">キーワード</label>
+			<div class="input-group">
+				<input type="text" name="keyword" class="form-control" ngModel>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label for="searchFromJob">ステータス</label>
+			<div class="input-group">
+				<!-- <input type="text" name="phone_number" value="" class="form-control" ngModel> -->
+				<select name="status" class="form-control" ngModel>
+					<option value="">ステータスを選択してください。</option>
+					<option value="-1">新しい</option>
+					<option value="0">未選択</option>
+					<option value="1">選考中</option>
+					<option value="2">採用</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label>操作</label>
+			<div class="input-group">
+				<button type="submit" class="btn btn-primary mb-2"><span class="fal fa-search"></span> 絞り込む</button>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="pb-2 mt-4 mb-2" [ngClass]="{'border-bottom': maxPage > 1}">
+	<h2>応募者リスト</h2>
+</div>
+<div class="table-responsive">
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th> No</th>
+				<th> 氏名</th>
+				<th> 応募日</th>
+				<th> 性別</th>
+				<th> 連絡先</th>
+				<th> 状態</th>
+				<th> 操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let applicant of listApplicant | paginate: { itemsPerPage: perPage, currentPage: currentPage, totalItems: maxItem}; let i = index">
+				<td><span class="text-danger" *ngIf="applicant.is_new">New!</span> </td>
+				<td>{{i + indexElement + 1}}</td>
+				<td>{{applicant.username}}</td>
+				<td>{{(applicant.apply_date !== null) ? (applicant.apply_date*1000 | date: 'yyyy年MM月dd日') : ""}}</td>
+				<td><span *ngIf="applicant.gender == 1">男性</span><span *ngIf="applicant.gender == 2">女性</span></td>
+				<td>{{applicant.phone_number}} <br>{{applicant.email}}</td>
+				<td>
+					<span *ngIf="applicant.status == 1">選考中</span>
+					<span *ngIf="applicant.status >= 2">採用完了</span>
+					<span *ngIf="applicant.status == -1">不採用</span>
+				</td>
+				<td>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="applicant.status <= 0 ? goDetail(applicant, MoveTo.Determine) : goDetail(applicant, MoveTo.ApplicantDetail)">
+						<i class="fal fa-user-check" *ngIf="applicant.status < 0">再選考</i>
+						<i class="fal fa-user-check" *ngIf="applicant.status == 0">選考</i>
+                        <i class="fal fa-user-check" *ngIf="applicant.status > 0">詳細</i>
+					</button>
+
+					<button type="button" class="btn btn-primary btn-sm" routerLink="/company/job/{{applicant.job_id}}/recruit/{{applicant.id}}"
+					 [disabled]="applicant.status != 1">
+						採否決定
+					</button>
+
+					<button type="button" class="btn btn-info btn-sm" routerLink="/company/job/{{applicant.job_id}}/bonus/{{applicant.id}}" [disabled]="applicant.status <= 1">
+						<i class="fal fa-gift"></i> 振込
+					</button>
+
+					<button type="button" class="btn btn-warning btn-sm" routerLink="/company/job/{{applicant.job_id}}/report/{{applicant.id}}" [disabled]="applicant.status != 2">
+						<span class="fal fa-file-alt"></span> 勤務報告
+					</button>
+
+					<button type="button" class="btn btn-success btn-sm" (click)="chat(applicant.chat_id)">
+						<i class="fal fa-comment"></i> チャット
+					</button>
+
+					<button id="chat-btn" type="button" class="d-none btn btn-success btn-sm" data-toggle="modal" data-target="#chat">
+					</button>
+
+					<button type="button" class="btn btn-danger btn-sm" (click)="toggleModalDelete(applicant.id)"><span class="fal fa-backspace"></span>
+						削除 </button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+</div>
+
+<app-modal #modal (confirmEvent)="confirmDelete($event)"></app-modal>
+<!--Chat Dialog-->
+<app-chat #modal_chat></app-chat>

@@ -1,0 +1,138 @@
+<form #formEdit="ngForm" (ngSubmit)="editCompany(formEdit.value)">
+	<div class="pb-2 mt-4 mb-2 border-bottom">
+		<h2>企業情報編集</h2>
+	</div>
+	<!--NAME-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">事業者名<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="company_name" required #company_name="ngModel" [(ngModel)]="company.company_name">
+				<small *ngIf="company_name.errors && (company_name.dirty || company_name.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<!--ADDRESS-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">住所<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="address" required #address="ngModel" [(ngModel)]="company.address">
+				<small *ngIf="address.errors && (address.dirty || address.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<!--PHONE-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">会社電話番号<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="phone_number" required #phone_number="ngModel" [(ngModel)]="company.phone_number">
+				<small *ngIf="phone_number.errors && (phone_number.dirty || phone_number.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<!--EMAIL-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">メールアドレス<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="email" required email #email="ngModel" [(ngModel)]="company.email">
+				<small *ngIf="email.errors?.required && (email.dirty || email.touched)" class="form-text text-danger">必須</small>
+                <small *ngIf="email.errors?.email && (email.dirty || email.touched)" class="form-text text-danger">メールアドレスは有効なメールアドレスである必要があります</small>
+			</div>
+		</div>
+	</div>
+	<!--URL-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">ホームページ</label>
+			<div class="form-group">
+				<input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="company.url">
+			</div>
+		</div>
+	</div>
+	<!--AENCY NAME-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">代理店名</label>
+			<div class="form-group">
+				<input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="company.agency_name">
+			</div>
+		</div>
+	</div>
+	<!--BUSINESS FIELD-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">経営分野</label>
+			<div class="form-group">
+				<select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="company.business_field">
+					<option *ngFor="let business of listBusinessField" value="{{business.id}}"> {{business.business_name}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<!--INTRODUCTION-->
+	<div class="form-row">
+		<div class="col-md-4 mb-3">
+			<label for="" class="font-weight-bold">紹介文</label>
+			<div class="form-group">
+				<textarea class="form-control" rows="4" [ngModelOptions]="{standalone: true}" [(ngModel)]="company.introduction"></textarea>
+			</div>
+		</div>
+	</div>
+	<!--POSITION COMPANY-->
+	
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-1">
+			<label for="inputOfficeName" class="font-weight-bold">地図</label>
+		</div>
+		<div class="col-md-2">
+			<label for="inputOfficeName" class="font-weight-bold">緯度</label>
+			<div class="form-group">
+				<input type="number" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="company.latitude">
+			</div>
+		</div>
+		<div class="col-md-2">
+			<label for="inputIndustryType" class="font-weight-bold">経度</label>
+			<div class="form-group">
+				<input type="number" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="company.longitude">
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4">
+			<label class="font-weight-bold">画像</label>
+		</div>
+	</div>
+	<div class="form-row" id="image-group">
+	</div>
+	<div class="form-row">
+		<button type="button" class="btn btn-warning btn-sm" (click)="moreImage()">さらに画像を追加</button>
+	</div>
+	<div class="form-row mt-4">
+		<div class="col-md-4">
+			<label class="font-weight-bold">ビデオ</label>
+		</div>
+	</div>
+	<div class="form-row" id="video-group">
+	</div>
+	<div class="form-row">
+		<button type="button" class="btn btn-warning btn-sm" (click)="moreVideo()">さらに画像を追加</button>
+	</div>
+	<div class="form-row mt-5">
+		<div class="col-md-2 mb-3">
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-block mb-2" [disabled]="!formEdit.valid"><span class="fal fa-file-alt"></span> 保存
+				</button>
+			</div>
+		</div>
+		<div class="col-md-1 mb-3">
+			<div class="form-group">
+				<button type="cancel" routerLink="/company/info" class="btn btn-secondary btn-block mb-2"><span class="fal fa-times"></span> キャンセル
+				</button>
+			</div>
+		</div>
+	</div>
+</form>
+<app-modal #modal></app-modal>

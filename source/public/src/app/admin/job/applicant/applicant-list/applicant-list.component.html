@@ -1,0 +1,125 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+    <h2 class="col-md-3">求人概要</h2>
+</div>
+<div class="form-row">
+    <div class="col-md-1 mb-3">
+        <div class="card">
+            <div class="card-header">
+                ID
+            </div>
+            <div class="card-body">
+                {{job?.id}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-header">
+                事業所
+            </div>
+            <div class="card-body">
+                {{job?.company_name}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-header">
+                タイトル
+            </div>
+            <div class="card-body">
+                {{job?.introduction_title}} &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 mb-3">
+        <div class="card">
+            <div class="card-header">
+                カテゴリー
+            </div>
+            <div class="card-body">
+                {{job?.category_name}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 mb-3">
+        <div class="card">
+            <div class="card-header">
+                職種
+            </div>
+            <div class="card-body">
+                {{job?.job_category_name}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+    <h2 class="col-md-3">絞り込み条件</h2>
+</div>
+<form>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="searchFromGender">キーワード</label>
+            <div class="input-group">
+                <input type="text" [(ngModel)]="model.keyword" name="keyword" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="searchFromGender">ステータス</label>
+            <div class="input-group">
+                <select id="searchFromStatus" class="form-control" [(ngModel)]="model.status" name="status">
+                    <option value="">ステータスを選択してください。</option>
+                    <option value="0">未選択</option>
+                    <option value="1">選考中</option>
+                    <option value="2">採用</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label>&nbsp;</label>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary mb-2" (click)="search()"><i data-feather="search"></i>
+                    絞り込む</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="pb-2 mt-4 mb-2">
+    <h2>応募者リスト</h2>
+    <nav class="justify-content-end">
+        <pagination-controls *ngIf="total > 0" previousLabel="" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+    </nav>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th> No</th>
+                <th> 氏名</th>
+                <th> 応募日</th>
+                <th> 性別</th>
+                <th> 年齢</th>
+                <th> 連絡先</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let applicant of applicants | paginate: { itemsPerPage: number_per_page, currentPage: pager, totalItems: total};let i = index">
+                <td>{{i+1}}</td>
+                <td>{{applicant.username}}</td>
+                <td>{{(applicant.apply_date !== null) ? (applicant.apply_date*1000 | date: 'yyyy年MM月dd日') : ""}}</td>
+                <td>{{applicant?.gender ==1 ? '女性' :'男性'}}</td>
+                <td>{{applicant?.age}}</td>
+                <td>{{applicant.phone_number}} <br>{{applicant.email}}</td>
+                <td><button type="button" class="btn btn-primary btn-sm" routerLink="/admin/job/{{job_id}}/applicant/{{applicant.id}}"><i
+                    class="fal fa-inbox"></i> 詳細
+                </button></td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class="justify-content-end">
+        <pagination-controls *ngIf="total > 0" previousLabel="" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+    </nav>
+</div>

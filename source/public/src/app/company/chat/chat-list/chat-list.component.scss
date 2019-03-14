@@ -1,0 +1,124 @@
+.main-frame {
+    height: 94vh;
+}
+.user-icon svg {
+    width: 3em;
+    height: 3em;
+}
+
+.chat-frame {
+    margin: auto;
+    /*padding: 1em 2em;*/
+    padding: .5em 1em;
+    background-color: #dee1e1;
+    height: 90%;
+}
+.message-frame {
+    height: 523px;
+    overflow-y: scroll;
+    padding-right: 1em;
+}
+.chat-talk {
+    overflow: hidden;
+    /*margin: 0 0 1em 0;*/
+    margin: 0 0 1em 0;
+    padding: 0;
+    font-size: .8rem;
+}
+.chat-talk span {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.chat-talk .talk-icon {
+    float: left;
+    width: auto;
+}
+.chat-talk .talk-content {
+    position: relative;
+    box-sizing: border-box;
+    width: auto;
+    /*min-height: 50px;*/
+    /*border-radius: 10px;*/
+    border-radius: .5em;
+    background-color: #fff;
+    margin: 0 auto 0 70px;
+    padding: 1em;
+}
+.chat-talk .talk-icon img {
+    max-width: 3em;
+    height: 3em;
+    vertical-align: bottom;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+.chat-talk .talk-content:before {
+    position: absolute;
+    top: 1em;
+    left: -1.5em;
+    display: block;
+    width: 0;
+    height: 0;
+    content: '';
+    border: 10px solid transparent;
+    border-right-color: #FFFFFF;
+}
+.chat-talk.mytalk .talk-icon {
+    float: right;
+}
+.chat-talk.mytalk .talk-content {
+    margin: 0 6em 0 auto;
+    color: #000;
+    background: #78FF6C;
+}
+.chat-talk.mytalk .talk-content:before {
+    right: -1.5em;
+    left: auto;
+    border-color: transparent;
+    border-left-color: #78FF6C;
+}
+
+/*未読*/
+.time-line-under-line {
+    padding: 8px 0;
+}
+
+.time-line-unread-line-border {
+    position: relative;
+    margin: 9px 0;
+    height: 1px;
+    background-color: #eb0800;
+}
+.time-line-unread-line-container {
+    position: absolute;
+    top: -13px;
+    width: 100%;
+    text-align: center;
+}
+.time-line-unread-line-body {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 19px;
+    line-height: 19px;
+    padding: 0 8px;
+    background-color: #dee1e1;
+}
+.time-line-unread-line-text {
+    font-size: 11px;
+    font-weight: bold;
+    color: #eb0800;
+}
+
+.memo-frame {
+    background-color: #c7caca;
+    border-radius: 1em;
+    height: 90%;
+    overflow-y: scroll;
+    padding-right: 1em;
+}
+.close-btn{
+    float: right;
+    margin-top: -34px;
+    margin-right: -10px;
+}

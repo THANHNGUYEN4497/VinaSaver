@@ -1,0 +1,150 @@
+<form (ngSubmit)="edit()">
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+        <h2>企業情報編集</h2>
+    </div>
+    <!--NAME-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="company_name">事業者名</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="company_name" [formControl]="companyName">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="companyName.errors?.email && !companyName.pristine">
+                <small> Email staff is not valid</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="companyName.errors?.required && !companyName.pristine">
+                <small> Company name required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="companyName.errors?.maxlength && !companyName.pristine">
+                <small> Company name max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.company_name">
+                <small> {{ responseErrors.company_name }}</small>
+            </div>
+        </div>
+
+    </div>
+    <!--ADDRESS-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="address">住所</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="address" [formControl]="address">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="address.errors?.required && !address.pristine">
+                <small> Address required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="address.errors?.maxlength && !address.pristine">
+                <small> Address max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.address">
+                <small> {{ responseErrors.address }}</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--PHONE-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="phone_number">会社電話番号</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="phone_number" [formControl]="phoneNumber">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="phoneNumber.errors?.required && !phoneNumber.pristine">
+                <small> Phone number required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="phoneNumber.errors?.maxlength && !phoneNumber.pristine">
+                <small> Phone number max is 15 numbers</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.phone_number">
+                <small> {{ responseErrors.phone_number }}</small>
+            </div>
+        </div>
+    </div>
+
+    <!--&lt;!&ndash;URL&ndash;&gt;-->
+    <!--<div class="form-row">-->
+        <!--<div class="col-md-8 mb-3">-->
+            <!--<div class="form-row">-->
+                <!--<label for="url">メールアドレス</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control" id="url" [formControl]="url">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-row alert alert-danger" *ngIf="url.errors?.maxlength && !url.pristine">-->
+                <!--<small> URL max is 255</small>-->
+            <!--</div>-->
+            <!--<div class="form-row alert alert-danger" *ngIf="responseErrors.url">-->
+                <!--<small> {{ responseErrors.url }}</small>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <!--BUSINESS FIELD-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="business">経営分野</label>
+                <div class="input-group">
+                    <select class="form-control" id="business" [formControl]="business">
+                        <option *ngFor="let businessField of businessFields" [ngValue]="businessField.id">{{ businessField.business_name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.business_field">
+                <small> {{ responseErrors.business_field }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!--EMAIL-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="url">メールアドレス</label>
+                <div class="input-group">
+                    <input disabled type="text" class="form-control" id="url" [formControl]="email">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.maxlength && !email.pristine">
+                <small> Email max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.email">
+                <small> {{ responseErrors.email }}</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="form-row">
+        <div class="col-md-3 offset-md-1 mb-3">
+            <div class="input-group">
+                <button type="submit" class="btn btn-success btn-block mb-2"><i class="far fa-save"></i> 保存
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="input-group">
+                <button type="button" (click)="goToList()" class="btn btn-warning btn-block mb-2"><i class="fas fa-ban"></i> キャンセル
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<app-modal #modal>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goToList()">Yes</button>
+        <button type="button" class="btn btn-default btn-sm margin-left" (click)="modal.hide()">No</button>
+    </div>
+</app-modal>

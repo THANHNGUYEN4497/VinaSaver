@@ -1,0 +1,88 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">採否決定</h2>
+</div>
+<form #form="ngForm" (ngSubmit)="bonus(form.value)">
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">名前</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.username}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">メールアドレス</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.email}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">電話番号</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{applicant.phone_number}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">生年月日</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{(applicant.birthday !== null) ? (applicant.birthday*1000 | date: 'yyyy年MM月dd日') : ""}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">申請日</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{(applicant.created_at !== null) ? (applicant.created_at*1000 | date: 'yyyy年MM月dd日') : ""}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="" class="font-weight-bold">注意</label>
+			<div class="form-group">
+				<p>{{applicant.note}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="" class="font-weight-bold">量
+				<span class="text-danger">*</span>
+			</label>
+			<div class="form-group">
+				<input type="number" class="form-control" name="amount" ngModel #amount="ngModel" required>
+				<small *ngIf="amount.errors && (amount.dirty || amount.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="" class="font-weight-bold">コンテンツ</label>
+			<div class="form-group">
+				<textarea rows="5" class="form-control" name="content" ngModel></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mb-3">
+		<div class="col-md-2">
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-block mb-2" [disabled]="!form.valid">
+					<i class="fal fa-user-plus"></i> 採用
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2 offset-md-1">
+			<div class="form-group">
+				<button type="button" class="btn btn-danger btn-block mb-2" routerLink="/company/job/{{jobId}}/applicant">
+					<i class="fal fa-user-minus"></i> 不採用
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

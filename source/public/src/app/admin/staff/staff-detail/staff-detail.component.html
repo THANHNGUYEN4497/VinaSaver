@@ -1,0 +1,56 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+    <h2 class="col-md-3">スタッフ情報</h2>
+</div>
+<form>
+    <div class="form-row mt-3 mb-3" *ngIf="infors.username">
+        <div class="col-md-8">
+            <label for="username" class="font-weight-bold">氏名</label>
+            <div id="username" class="input-group">{{infors.username}}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.privilege">
+        <div class="col-md-8">
+            <label for="position" class="font-weight-bold">役職</label>
+            <div id="position" class="input-group">
+                {{ positions.get(infors['privilege']) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.phone_number">
+        <div class="col-md-8">
+            <label for="phone" class="font-weight-bold">電話番号</label>
+            <div id="phone" class="input-group">{{infors.phone_number}}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.email">
+        <div class="col-md-8">
+            <label for="email" class="font-weight-bold">電子メール</label>
+            <div id="email" class="input-group">{{infors.email}}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mt-3 mb-3" *ngIf="infors.address">
+        <div class="col-md-8">
+            <label for="address" class="font-weight-bold">住所</label>
+            <div id="address" class="input-group">
+                {{infors.address}}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 offset-md-2 mb-3">
+            <div class="input-group">
+                <a type="button" (click)="goToList()" class="btn btn-success btn-block mb-2"><i
+                    class="fal fa-backspace"></i> 戻る</a>
+            </div>
+        </div>
+    </div>
+
+
+</form>

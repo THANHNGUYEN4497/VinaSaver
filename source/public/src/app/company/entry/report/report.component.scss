@@ -1,0 +1,19 @@
+input[type="radio"]:checked+span{
+	background: #28a745 !important;
+	position: relative;
+}
+input[type="radio"]:checked+span:before {
+	content: "\f560";
+	font-family: "Font Awesome 5 Pro";
+    width: 20px;
+    height: 20px;
+    color: #d39e00;
+    display: block;
+    position: absolute;
+    top: -15px;
+    right: -5px;
+    font-size: 20px;
+}
+.btn-group label {
+	cursor: pointer;
+}

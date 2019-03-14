@@ -1,0 +1,268 @@
+<form #formEdit="ngForm" (ngSubmit)="editJob($event, formEdit.value)">
+	<div class="pb-2 mt-4 mb-2 border-bottom">
+		<h2>基本情報</h2>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">タイトル<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="title" required #title="ngModel" [(ngModel)]="job.title">
+				<small *ngIf="title.errors && (title.dirty || title.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">カテゴリー<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<select class="form-control" name="category_id" required #category_id="ngModel" [(ngModel)]="job.category_id">
+					<option *ngFor="let ct of listCategory" value="{{ct.id}}"> {{ct.category_name}}</option>
+				</select>
+				<small *ngIf="category_id.errors && (category_id.dirty || category_id.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">職種<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<select class="form-control" name="job_category_id" required #job_category_id="ngModel" [(ngModel)]="job.job_category_id">
+					<option *ngFor="let jct of listJobCategory" value="{{jct.id}}"> {{jct.job_category_name}}</option>
+				</select>
+				<small *ngIf="job_category_id.errors && (job_category_id.dirty || job_category_id.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">タイプ<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<select class="form-control" name="job_type_id" required #job_type_id="ngModel" [(ngModel)]="job.job_type_id">
+					<option *ngFor="let type of listJobType" value="{{type.id}}"> {{type.type_name}}</option>
+				</select>
+				<small *ngIf="job_type_id.errors && (job_type_id.dirty || job_type_id.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">エリア</label>
+			<div class="form-group">
+				<select class="form-control" name="area_id" [(ngModel)]="job.area_id">
+					<option *ngFor="let area of listArea" value="{{area.id}}"> {{area.area_name}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">給与</label>
+			<div class="form-group">
+				<input type="text" min="0" class="form-control" name="salary" [(ngModel)]="job.salary">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">最低年齢</label>
+			<div class="form-group">
+				<input type="number" min="1" class="form-control" name="age_min" [(ngModel)]="job.age_min" (input)="validateAgeInput($event.target.value, 1)">
+				<small *ngIf="job.age_min && job.age_min < 1" class="form-text text-danger">0より大きくなければなりません</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">最大年齢</label>
+			<div class="form-group">
+				<input type="number" max="130" class="form-control" name="age_max" [(ngModel)]="job.age_max" (input)="validateAgeInput($event.target.value, 1)">
+				<small *ngIf="!validateAge && job.age_min > 0 && job.age_max < 150" class="form-text text-danger">最低年齢を超えている必要があります</small>
+				<small *ngIf="job.age_max && job.age_max > 150" class="form-text text-danger">150より小さくなければなりません</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">レイト男性/女性</label>
+			<div class="form-group">
+				<input type="number" min="0" max="100" class="form-control" name="gender_ratio" [(ngModel)]="job.gender_ratio">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">交通</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="traffic" [(ngModel)]="job.traffic">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">ようこそ</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="welcome" [(ngModel)]="job.welcome">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">紹介（タイトル）</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="introduction_title" [(ngModel)]="job.introduction_title">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">紹介（本文）</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="introduction_content" [(ngModel)]="job.introduction_content">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">説明</label>
+			<div class="form-group">
+				<textarea rows="5" type="text" class="form-control" name='description' [(ngModel)]="job.description"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">仕事内容</label>
+			<div class="form-group">
+				<textarea rows="5" type="text" class="form-control" name='job_content' [(ngModel)]="job.job_content"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">店舗名</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="store_name" [(ngModel)]="job.store_name">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">職場の様子</label>
+			<div class="form-group">
+				<select class="form-control" name="workplace_status" [(ngModel)]="job.workplace_status">
+					<option value="1">静かな</option>
+					<option value="2">うるさい</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">勤務時間</label>
+			<div class="form-group">
+				<input type="number" min="0" max="24" class="form-control" name="hours" [(ngModel)]="job.hours">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">勤務期間</label>
+			<div class="form-group">
+				<textarea rows="3" class="form-control" name="working_time" [(ngModel)]="job.working_time"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">応募資格</label>
+			<div class="form-group">
+				<textarea rows="3" class="form-control" name="requirements" [(ngModel)]="job.requirements"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">待遇</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="treatment" [(ngModel)]="job.treatment">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">勤務先住所</label>
+			<div class="form-group">
+				<input type="text" class="form-control" name="address" [(ngModel)]="job.address">
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">公開開始日<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<my-date-picker name="release_start_date" required #release_start_date="ngModel" class="col-md-5" id="start_date" [options]="myDatePickerOptions"
+                    (dateChanged)="onStartDateChanged($event)" [(ngModel)]="model"></my-date-picker>
+				<small *ngIf="release_start_date.errors && (release_start_date.dirty || release_start_date.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">公開終了日<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<my-date-picker name="release_end_date" class="col-md-5" id="end_date" [options]="myDatePickerOptions"
+                    (dateChanged)="onEndDateChanged($event)" required #release_end_date="ngModel" [(ngModel)]="model2"></my-date-picker>
+				<small *ngIf="release_end_date.errors && (release_end_date.dirty || release_end_date.touched)" class="form-text text-danger">必須</small>
+				<small *ngIf="!validateDate" class="form-text text-danger">終了日は開始日より大きくなければなりません</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3" *ngIf="privilege == 1">
+		<div class="col-md-6">
+			<label for="" class="font-weight-bold">管理スタッフ<span class="text-danger">*</span></label>
+			<div class="form-group">
+				<select class="form-control" name="management_staff" required #management_staff="ngModel" [(ngModel)]="job.management_staff">
+                    <option *ngFor="let staff of listStaff" value="{{staff.id}}"> {{staff.username}}</option>
+				</select>
+				<small *ngIf="management_staff.errors && (management_staff.dirty || management_staff.touched)" class="form-text text-danger">必須</small>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4">
+			<label class="font-weight-bold">画像</label>
+		</div>
+	</div>
+	<div class="form-row" id="image-group">
+	</div>
+	<div class="form-row">
+		<button type="button" class="btn btn-warning btn-sm" (click)="moreImage()">さらに画像を追加</button>
+	</div>
+	<div class="form-row mt-4">
+		<div class="col-md-4">
+			<label class="font-weight-bold">ビデオ</label>
+		</div>
+	</div>
+	<div class="form-row" id="video-group">
+	</div>
+	<div class="form-row">
+		<button type="button" class="btn btn-warning btn-sm" (click)="moreVideo()">さらに画像を追加</button>
+	</div>
+	<div class="form-row mt-5">
+		<div class="col-md-2 col-sm-2 mb-3">
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-block mb-2" [disabled]="!formEdit.valid || !validateAge || !validateDate"><span class="fal fa-file-alt"></span> 保存
+				</button>
+			</div>
+		</div>
+		<div class="col-md-4 mb-3">
+			<div class="form-group">
+				<button type="cancel" class="btn btn-secondary mb-2" routerLink="/company/job"><span class="fal fa-times"></span>
+					キャンセル
+				</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<app-modal #modal></app-modal>

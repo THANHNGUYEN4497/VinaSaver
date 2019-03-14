@@ -1,0 +1,81 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+    <h2>絞り込み条件</h2>
+</div>
+<form>
+    <div class="form-row">
+        <div class="col-md-5 mb-3">
+            <label for="inputCreatedAtBegin">振込日</label>
+            <div class="input-group">
+                <div class="input-group">
+                    <my-date-picker name="start_date" class="col-md-5" id="start_date" [options]="myDatePickerOptions"
+                        (dateChanged)="onStartDateChanged($event)"></my-date-picker>
+                    <div style="display: flex;align-items:center">〜</div>
+                    <my-date-picker name="end_date" class="col-md-5" id="end_date" [options]="myDatePickerOptions"
+                        (dateChanged)="onEndDateChanged($event)"></my-date-picker>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="inputKeyword">コネクター名</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="inputKeyword" [(ngModel)]="model.connector_name" name="connector_name">
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label>&nbsp;</label>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary mb-2" (click)="search()"><i class="fal fa-search"></i>
+                    絞り込む</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="pb-2 mt-4 mb-2">
+    <h2>報酬祝金振込履歴</h2>
+    <nav class="justify-content-end">
+        <pagination-controls *ngIf="total > 0" previousLabel="" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+    </nav>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>決済日時</th>
+                <th>コネクター名</th>
+                <th>コンテンツ</th>
+                <th>金額</th>
+                <th>状況</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transfer1 of transfers | paginate: { itemsPerPage: number_per_page, currentPage: pager, totalItems: total};let i = index">
+                <td>{{i+1+indexElement}}</td>
+                <td>{{(transfer1.created_at !== null) ? (transfer1.created_at*1000 | date: 'yyyy年MM月dd日') : ""}}</td>
+                <td>{{transfer1.connector_name}}</td>
+                <td>{{transfer1.content}}</td>
+                <td>{{transfer1.amount}}円</td>
+                <td>{{transfer1.status ==1 ? '支払' :'未支払'}} <button *ngIf="transfer1.status == 0" type="button" class="btn btn-primary btn-sm"
+                        (click)="transfer(transfer1.id)">振込</button></td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="onDelete(transfer1.id)"><i class="fal fa-backspace"></i>
+                        削除
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class="justify-content-end">
+        <pagination-controls *ngIf="total > 0" previousLabel="" nextLabel="" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+    </nav>
+</div>
+<app-modal #modal>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="delete()">OK</button>
+        <button type="button" class="btn btn-default btn-sm margin-left" (click)="modalComponent.hide()">キャンセル</button>
+    </div>
+</app-modal>

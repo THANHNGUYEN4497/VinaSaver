@@ -1,0 +1,73 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">絞り込み条件</h2>
+</div>
+<form #form="ngForm" (submit)="search(form.value)">
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<label for="searchFromGender">キーワード</label>
+			<div class="input-group">
+				<input type="text" name="keyword" class="form-control" ngModel>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label>操作</label>
+			<div class="input-group">
+				<button type="submit" class="btn btn-primary mb-2"><span class="fal fa-search"></span> 絞り込む</button>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="pb-2 mt-4 mb-2" [ngClass]="{'border-bottom': maxPage > 1}">
+	<h2>新着応募リスト</h2>
+</div>
+<div class="table-responsive">
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th> No</th>
+				<th> 応募日</th>
+                <th> 応募対象</th>
+				<th> 氏名</th>
+				<th> 性別</th>
+				<th> 連絡先</th>
+				<th> 操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let applicant of listApplicant | paginate: { itemsPerPage: perPage, currentPage: currentPage, totalItems: maxItem}; let i = index" class="">
+				<td><span class="text-danger" *ngIf="applicant.is_new">New!</span> </td>
+				<td>{{i + indexElement + 1}}</td>
+				<td class="md-0">{{(applicant.apply_date !== null) ? (applicant.apply_date*1000 | date: 'yyyy年MM月dd日') : ""}}</td>
+                <td><a routerLink="/company/job/{{applicant.job_id}}/detail">{{applicant.job_title}}</a></td>
+                <td><a routerLink="/company/job/{{applicant.job_id}}/applicant-detail/{{applicant.id}}" (click)="goDetail(applicant, MoveTo.ApplicantDetail)" ngMouseOver>{{applicant.username}}</a></td>
+				<td><span *ngIf="applicant.gender == 1">男性</span><span *ngIf="applicant.gender == 2">女性</span></td>
+				<td>{{applicant.phone_number}} <br>{{applicant.email}}</td>
+				<td>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="goDetail(applicant, MoveTo.Determine)">
+						<i class="fal fa-user-check"></i> 選考
+					</button>
+					<button type="button" class="btn btn-success btn-sm" (click)="chat(applicant.chat_id)">
+						<i class="fal fa-comment"></i> チャット
+					</button>
+					<button id="chat-btn" type="button" class="d-none btn btn-success btn-sm" data-toggle="modal" data-target="#chat">
+					</button>
+					<button type="button" class="btn btn-danger btn-sm" (click)="toggleModalDelete(applicant.id)"><span class="fal fa-backspace"></span>
+						削除 </button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+</div>
+
+<app-modal #modal (confirmEvent)="confirmDelete($event)"></app-modal>
+
+<app-chat #modal_chat></app-chat>

@@ -1,0 +1,232 @@
+<form (ngSubmit)="add()" *ngIf="businessFields">
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+        <h2>企業情報登録</h2>
+    </div>
+
+    <!--NAME-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="company_name">事業者名</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="company_name" [formControl]="companyName">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="companyName.errors?.required && !companyName.pristine">
+                <small> Company name required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="companyName.errors?.maxlength && !companyName.pristine">
+                <small> Company name max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.company_name">
+                <small> {{ responseErrors.company_name }}</small>
+            </div>
+        </div>
+
+    </div>
+    <!--ADDRESS-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="address">住所</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="address" [formControl]="address">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="address.errors?.required && !address.pristine">
+                <small> Address required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="address.errors?.maxlength && !address.pristine">
+                <small> Address max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.address">
+                <small> {{ responseErrors.address }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!--PHONE-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="phone_number">会社電話番号</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="phone_number" [formControl]="phoneNumber">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="phoneNumber.errors?.required && !phoneNumber.pristine">
+                <small> Phone number required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="phoneNumber.errors?.maxlength && !phoneNumber.pristine">
+                <small> Phone number max is 15 numbers</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.phone_number">
+                <small> {{ responseErrors.phone_number }}</small>
+            </div>
+        </div>
+    </div>
+    <!--EMAIL-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="email">メールアドレス</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="email" [formControl]="email">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.required && !email.pristine">
+                <small> Email required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.maxlength && !email.pristine">
+                <small> Email max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.email && !email.pristine">
+                <small> Email is not valid</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.email">
+                <small> {{ responseErrors.email }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!--BUSINESS FIELD-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="business">経営分野</label>
+                <div class="input-group">
+                    <select class="form-control" id="business" [formControl]="business" name="business">
+                        <option *ngFor="let businessField of businessFields" [ngValue]="businessField.id">{{ businessField.business_name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.business_field">
+                <small> {{ responseErrors.business_field }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!--USERNAME STAFF-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="username_staff">ユーザー名</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="username_staff" [formControl]="usernameStaff">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="usernameStaff.errors?.required && !usernameStaff.pristine">
+                <small> Username staff required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="usernameStaff.errors?.maxlength && !usernameStaff.pristine">
+                <small> Username staff max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.username_staff">
+                <small> {{ responseErrors.username_staff }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!--EMAIL STAFF-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="email_staff">電子メイル</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="email_staff" [formControl]="emailStaff">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="emailStaff.errors?.required && !emailStaff.pristine">
+                <small> Email staff required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="emailStaff.errors?.maxlength && !emailStaff.pristine">
+                <small> Email staff max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="emailStaff.errors?.email && !emailStaff.pristine">
+                <small> Email staff is not valid</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.email_staff">
+                <small> {{ responseErrors.email_staff }}</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--PASSWORD-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="password">パスワード</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" [formControl]="password">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="password.errors?.required && !password.pristine">
+                <small> Password required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="password.errors?.maxlength && !password.pristine">
+                <small> Password max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.password">
+                <small> {{ responseErrors.password }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!--PASSWORD CONFIRMATION-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="password_confirmation">パスワード確認</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password_confirmation"
+                           [formControl]="passwordConfirmation">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger"
+                 *ngIf="passwordConfirmation.errors?.required && !passwordConfirmation.pristine">
+                <small> Password Confirmation required</small>
+            </div>
+            <div class="form-row alert alert-danger"
+                 *ngIf="passwordConfirmation.errors?.maxlength && !passwordConfirmation.pristine">
+                <small> Password Confirmation max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger"
+                 *ngIf="passwordConfirmation.value != password.value && !passwordConfirmation.pristine">
+                <small> Password Confirmation not match Password</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.password_confirmation">
+                <small> {{ responseErrors.password_confirmation }}</small>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-3 offset-md-1 mb-3">
+            <div class="input-group">
+                <button type="submit" class="btn btn-success btn-block mb-2"><i
+                    class="fal fa-save"></i> 作成
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="input-group">
+                <button type="button" (click)="goToList()" class="btn btn-warning btn-block mb-2"><i class="fas fa-ban"></i> キャンセル
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<app-modal #modal>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goToList()">Yes</button>
+        <button type="button" class="btn btn-default btn-sm margin-left" (click)="modal.hide()">No</button>
+    </div>
+</app-modal>

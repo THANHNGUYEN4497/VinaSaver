@@ -1,0 +1,58 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-2">決済</h2>
+</div>
+<form (ngSubmit)="settle()">
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">採用者</p>
+		</div>
+		<div class="col-md-3">
+			<p *ngIf="applicant?.username">応募 {{applicant.username}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">期間</p>
+		</div>
+		<div class="col-md-3">
+			<p *ngIf="applicant?.recruited_time_by_company">{{(applicant.recruited_time_by_company) ? (applicant.recruited_time_by_company*1000 | date: 'yyyy年MM月dd日') : ""}} 〜 {{currentDay | date: 'yyyy年MM月dd日'}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">名目</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{content}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">金額</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{amount}}円</p>
+		</div>
+	</div>
+	<!-- <div class="form-row mt-3 mb-3">
+		<div class="col-md-5">
+			<label for="presentSituation" class="font-weight-bold">使用するカード(ブランド, 下4桁, 使用期限, 名義)</label>
+			<div class="input-group">
+				<select class="form-control" id="presentSituation">
+					<option>選択してください</option>
+					<option>JCB, 1234, 06/25, TARO KESSAI</option>
+					<option>VISA, 4234, 06/25, HANAKO KESSAI</option>
+				</select>
+			</div>
+		</div>
+	</div> -->
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<div class="input-group">
+				<button type="submit" class="btn btn-success btn-block mb-2">決済する</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<app-modal #modal></app-modal>

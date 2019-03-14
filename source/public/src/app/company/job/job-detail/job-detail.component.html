@@ -1,0 +1,181 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">求人詳細情報</h2>
+</div>
+<form>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<label for="inputIndustryType" class="font-weight-bold">タイトル</label>
+			<div class="input-group">{{job.title}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-4">
+			<label for="inputOfficeName" class="font-weight-bold">カテゴリー</label>
+			<div class="input-group">{{job.category}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputTitle" class="font-weight-bold">職種</label>
+			<div class="input-group">{{job.job_category}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-4">
+			<label for="inputJobType" class="font-weight-bold">給与</label>
+			<div class="input-group">{{job.salary}}円</div>
+		</div>
+	</div>
+	<div class="form-row mb-3">
+		<div class="col-md-8">
+			<label for="inputWork" class="font-weight-bold">交通</label>
+			<div class="input-group">
+				{{job.traffic}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-4">
+			<label for="inputSalary" class="font-weight-bold">歓迎条件</label>
+			<div class="input-group">{{job.welcome}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-4">
+			<label for="inputWorkingTime" class="font-weight-bold">紹介（タイトル）</label>
+			<div class="input-group">{{job.introduction_title}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-4">
+			<label for="inputWorkingTime" class="font-weight-bold">紹介（本文）</label>
+			<div class="input-group">{{job.introduction_content}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-4">
+			<label for="inputWorkingTime" class="font-weight-bold">仕事内容</label>
+			<div class="input-group">{{job.description}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputTrafficRoute" class="font-weight-bold">店舗名</label>
+			<div class="input-group">{{job.store_name}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputFeatures" class="font-weight-bold">勤務時間</label>
+			<div class="input-group">
+				{{job.hours}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputFeatures" class="font-weight-bold">勤務期間</label>
+			<div class="input-group">
+				{{job.working_time}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputQualificationRequirement" class="font-weight-bold">応募資格</label>
+			<div class="input-group">{{job.requirements}}</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputTreatment" class="font-weight-bold">会社名</label>
+			<div class="input-group">
+				{{job.company_name}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputMessage" class="font-weight-bold">住所</label>
+			<div class="input-group">
+				{{job.address}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputMessage" class="font-weight-bold">会社電話番号</label>
+			<div class="input-group">
+				{{job.phone_number}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputMessage" class="font-weight-bold">ホームページ</label>
+			<div class="input-group">
+				{{job.url}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputMessage" class="font-weight-bold">公開開始日</label>
+			<div class="input-group" *ngIf="job.release_start_date">
+				{{(job.release_start_date) ? (job.release_start_date*1000 | date: 'yyyy年MM月dd日') : ""}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="inputMessage" class="font-weight-bold">公開終了日</label>
+			<div class="input-group" *ngIf="job.release_end_date">
+				{{(job.release_end_date) ? (job.release_end_date*1000 | date: 'yyyy年MM月dd日') : ""}}
+			</div>
+		</div>
+	</div>
+
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-8">
+			<label for="" class="font-weight-bold">管理スタッフ</label>
+			<div class="input-group">
+				{{job.management_staff_name}}
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-4">
+			<label class="font-weight-bold">画像</label>
+		</div>
+	</div>
+	<div class="form-row" *ngIf="job?.images?.length > 0">
+		<div class="col-md-2 mb-3" *ngFor="let image of job?.images">
+			<div class="preview-div">
+				<img src="{{image.path}}" class="job-image">
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+	    <div class="col-md-4">
+	        <label class="font-weight-bold">ビデオ</label>
+	    </div>
+	</div>
+	<div class="form-row" *ngIf="job?.videos?.length > 0">
+	    <div class="col-md-3 mb-3" *ngFor="let video of job?.videos">
+	        <div class="preview-div">
+	            <video class="" controls width="300" height="300" src="{{video.path}}"></video>
+	        </div>
+	    </div>
+	</div>
+	<div class="form-row mt-4">
+		<div class="col-md-2 mb-3">
+			<div class="input-group">
+				<button type="submit" *ngIf="movedFrom === MoveFrom.JobList" class="btn btn-success btn-block mb-2" routerLink="/company/job"><i class="fal fa-backspace"></i> 戻る</button>
+				<button type="submit" *ngIf="movedFrom === MoveFrom.NewApplicants" class="btn btn-success btn-block mb-2" routerLink="/company/new-applicants"><i class="fal fa-backspace"></i> 戻る</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<app-modal #modal></app-modal>

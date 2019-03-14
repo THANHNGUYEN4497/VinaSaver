@@ -1,0 +1,118 @@
+<div class="pb-2 mt-4 mb-2 border-bottom">
+    <h2>絞り込み条件</h2>
+</div>
+<form (ngSubmit)="search()">
+    <div class="form-row">
+        <div class="col-md-3 mb-3">
+            <label for="keyword">キーワード</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="keyword" placeholder="" [(ngModel)]="keyWord"
+                       name="keyWord">
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="business">経営分野</label>
+            <div class="input-group">
+                <select class="form-control" id="business" [(ngModel)]="business" name="business">
+                    <option *ngFor="let businessField of businessFields | keyvalue" value="{{businessField.key}}">{{businessField.value}}</option>
+                    <!--<option value="" [selected]="true">カテゴリー名を選択してください。</option>-->
+                    <!--<option *ngFor="let businessField of businessFields | keyvalue" [ngValue]="businessField.key">{{ businessField.value }}-->
+                    <!--</option>-->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-row">
+                <label for="date-begin">日時</label>
+                <div class="input-group">
+                    <my-date-picker  name="dateBegin" class="col-md-5" id="date-begin" [options]="myDatePickerOptions"
+                                    (dateChanged)="onStartDateChanged($event)"></my-date-picker>
+                    <div style="display: flex;align-items:center">〜</div>
+                    <my-date-picker  name="dateEnd" class="col-md-5" id="date-end" [options]="myDatePickerOptions"
+                                    (dateChanged)="onEndDateChanged($event)"></my-date-picker>
+                    <!--<my-date-picker name="end_date" class="col-md-5" id="end_date" [options]="myDatePickerOptions"-->
+                                    <!--(dateChanged)="onEndDateChanged($event)"></my-date-picker>-->
+                    <!--<input class="form-control text-center" type="date" value="" id="date-begin" [(ngModel)]="dateBegin"-->
+                           <!--name="dateBegin">-->
+                    <!--<div class="input-group-append">-->
+                        <!--<div class="input-group-text">〜</div>-->
+                    <!--</div>-->
+                    <!--<input class="form-control text-center" type="date" value="" id="date-end" [(ngModel)]="dateEnd"-->
+                           <!--name="dateEnd">-->
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="dateError">
+                <small>{{ dateError }}</small>
+            </div>
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label>&nbsp;</label>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary mb-2"><i class="fal fa-search"></i> 絞り込む</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="pb-2 mt-4 mb-2">
+    <h2>事業者一覧</h2>
+</div>
+<div class="table-responsive">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <app-pagination #pagination (eventGetData)="search($event)"></app-pagination>
+        </ul>
+    </nav>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>事業者名</th>
+            <th>経営分野</th>
+            <th>住所</th>
+            <th>電話番号</th>
+            <th>
+                <button type="button" class="btn btn-success btn-sm"
+                        routerLink="/admin/company/add"><i class="fal fa-file-alt"></i>
+                    新規登録
+                </button>
+            </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="paginationComponent.data">
+        <tr *ngFor="let item of paginationComponent.items; let i = index">
+            <td>{{ paginationComponent.getIndex(i) }}</td>
+            <td>{{item.company_name}}</td>
+            <td>{{ businessFields.get(item['business_field']) }}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.phone_number}}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm"
+                        routerLink="/admin/company/{{item.id}}"><i class="fal fa-inbox"></i> 詳細
+                </button>
+                <button type="button" class="btn btn-info btn-sm"
+                        (click)="goToStaff(item.id)"><i class="fal fa-user-friends"></i> ｽﾀｯﾌ
+                </button>
+                <button type="button" class="btn btn-primary btn-sm"
+                        routerLink="/admin/company/edit/{{item.id}}"><i class="fal fa-edit"></i> 編集
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="onDelete(item.id, item.company_name)"><i
+                    class="fal fa-backspace"></i> 削除
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <app-pagination #pagination2 (eventGetData)="search($event)"></app-pagination>
+        </ul>
+    </nav>
+</div>
+<app-modal #modal>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="delete()">OK</button>
+        <button type="button" class="btn btn-default btn-sm margin-left" (click)="modalComponent.hide()">キャンセル</button>
+    </div>
+</app-modal>

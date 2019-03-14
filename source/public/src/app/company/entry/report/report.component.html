@@ -1,0 +1,62 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3">勤務報告</h2>
+</div>
+<form #form="ngForm" (ngSubmit)="report(form.value)">
+	<div class="form-row mt-3 mb-3">
+		<h5 class="col-md-3 user-title" *ngIf="applicant?.username"><i class="fal fa-user fa-lg"></i> 応募 {{applicant.username}}</h5>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<h5 class="col-md-4 user-title" *ngIf="applicant?.recruited_time_by_company"><i class="fal fa-calendar fa-lg"></i> {{(applicant.recruited_time_by_company) ? (applicant.recruited_time_by_company*1000 | date: 'yyyy年MM月dd日') : ""}} 〜 {{currentDay | date: 'yyyy年MM月dd日'}}</h5>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<p class="font-weight-bold">現況</p>
+		<div class="btn-group btn-group-toggle">
+			<label for="a" class="ml-4">
+				<input name="report_by_company" class="d-none" id="a" ng-control="options" type="radio" [value]="1" [(ngModel)]="report_by_company" required>
+				<span class="py-2 px-4 text-white rounded bg-secondary">在籍</span>
+			</label>
+			<label for="b" class="ml-1">
+				<input name="report_by_company" class="d-none" id="b" ng-control="options" type="radio" [value]="2" [(ngModel)]="report_by_company" required>
+				<span class="py-2 px-4 text-white rounded bg-secondary">解雇</span>
+			</label>
+			<label for="c" class="ml-1">
+				<input name="report_by_company" class="d-none" id="c" ng-control="options" type="radio" [value]="3" [(ngModel)]="report_by_company" required>
+				<span class="py-2 px-4 text-white rounded bg-secondary">自己都合退職</span>
+			</label>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">名目</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{content}}</p>
+		</div>
+	</div>
+	<div class="form-row mt-3 mb-3">
+		<div class="col-md-2">
+			<p class="font-weight-bold">金額</p>
+		</div>
+		<div class="col-md-3">
+			<p>{{amount}}円</p>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<div class="input-group">
+				<button type="submit" class="btn btn-success btn-block mb-2" [disabled]="!form.valid">
+				<i class="fal fa-paper-plane"></i> 送信して決済へ
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<div class="input-group">
+				<button type="button" class="btn btn-danger btn-block mb-2" routerLink="/company/job/{{jobId}}/applicant">
+				<i class="fal fa-times"></i> 送信して戻る
+				</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<app-modal #modal></app-modal>

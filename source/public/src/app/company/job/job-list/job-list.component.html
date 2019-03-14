@@ -1,0 +1,94 @@
+<div class="pb-2 mt-4 mb-2 border-bottom row">
+	<h2 class="col-md-3" id="test">絞り込み条件</h2>
+</div>
+<form #formSearchJob="ngForm" (submit)="search(formSearchJob.value)">
+	<div class="form-row">
+		<div class="col-md-2 mb-3">
+			<label for="inputID">キーワード</label>
+			<div class="input-group">
+				<input type="text" class="form-control" name="keyword" ngModel>
+			</div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label for="inputKeyword">カテゴリー</label>
+			<div class="input-group">
+				<select class="form-control" name="category_id" ngModel>
+					<option value="">カテゴリー名を選択してください。</option>
+					<option *ngFor="let ct of listCategory" value="{{ct.id}}"> {{ct.category_name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-5 mb-3">
+			<label for="inputID">時間</label>
+			<div class="input-group">
+                <my-date-picker name="startDate" class="col-md-5" id="start_date" [options]="myDatePickerOptions"
+                    (dateChanged)="onStartDateChanged($event)"></my-date-picker>
+                <div style="display: flex;align-items:center">〜</div>
+                <my-date-picker name="endDate" class="col-md-5" id="end_date" [options]="myDatePickerOptions"
+                    (dateChanged)="onEndDateChanged($event)"></my-date-picker>
+            </div>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label>操作</label>
+			<div class="input-group">
+				<button type="submit" class="btn btn-primary mb-2"><span class="fal fa-search"></span> 絞り込む</button>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="">
+	<div class="pb-2 mt-4 mb-2 row">
+		<h2 class="col-md-3">求人一覧</h2>
+	</div>
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>作成日時</th>
+				<th>カテゴリー</th>
+				<th>タイトル</th>
+				<th>住所</th>
+				<th>応募数</th>
+				<th>
+					<button type="button" class="btn btn-success btn-sm" routerLink="/company/job/add"><i class="far fa-plus"></i>
+					新規登録
+					</button>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let job of listJob | paginate: { itemsPerPage: perPage, currentPage: currentPage, totalItems: maxItem}; let i = index">
+				<td>{{i + indexElement + 1}}</td>
+				<td>{{(job.created_at !== null) ? (job.created_at*1000 | date: 'yyyy年MM月dd日') : ""}}</td>
+				<td>{{job.category_name}}</td>
+				<td>{{job.title}}</td>
+				<td>{{job.address}}</td>
+                <td>{{job.applicants}}</td>
+				<td>
+					<button type="button" class="btn btn-info btn-sm" routerLink="/company/job/{{job.id}}/detail">
+					詳細
+					</button>
+					<button type="button" class="btn btn-info btn-sm" routerLink="/company/job/{{job.id}}/applicant">
+					<i class="fal fa-user-friends"></i> 応募者
+					</button>
+					<button type="button" class="btn btn-primary btn-sm"  routerLink="/company/job/{{job.id}}/edit">
+					<i class="fal fa-edit"></i> 編集
+					</button>
+					<button type="button" class="btn btn-danger btn-sm" (click)="toggleModalDelete(job.id)">
+					<i class="fal fa-backspace"></i> 削除
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation example" *ngIf="maxItem > perPage">
+		<pagination-controls previousLabel="" nextLabel="" autoHide="true" (pageChange)="pageChanged($event)" maxSize="10">
+        </pagination-controls>
+	</nav>
+</div>
+
+<app-modal #modal (confirmEvent)="confirmDelete($event)"></app-modal>

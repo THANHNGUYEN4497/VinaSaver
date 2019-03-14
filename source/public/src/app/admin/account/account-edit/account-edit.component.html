@@ -1,0 +1,143 @@
+<form (ngSubmit)="edit()">
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+        <h2>アカウント情報編集</h2>
+    </div>
+    <!--NAME-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="company_name">氏名</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="company_name" [formControl]="username">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="username.errors?.required && !username.pristine">
+                <small> Username required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="username.errors?.maxlength && !username.pristine">
+                <small> Username name max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.username">
+                <small> {{ responseErrors.username }}</small>
+            </div>
+        </div>
+    </div>
+    <!--&lt;!&ndash;PASSWORD&ndash;&gt;-->
+    <!--<div class="form-row">-->
+    <!--<div class="col-md-8 mb-3">-->
+    <!--<div class="form-row">-->
+    <!--<label for="password">パスワード</label>-->
+    <!--<div class="input-group">-->
+    <!--<input type="password" class="form-control" id="password" [formControl]="password">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger" *ngIf="password.errors?.required && !password.pristine">-->
+    <!--<small> Password required</small>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger" *ngIf="password.errors?.maxlength && !password.pristine">-->
+    <!--<small> Password max is 255</small>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger" *ngIf="responseErrors.password">-->
+    <!--<small> {{ responseErrors.password }}</small>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--</div>-->
+
+    <!--&lt;!&ndash;PASSWORD CONFIRMATION&ndash;&gt;-->
+    <!--<div class="form-row">-->
+    <!--<div class="col-md-8 mb-3">-->
+    <!--<div class="form-row">-->
+    <!--<label for="password_confirmation">パスワード確認</label>-->
+    <!--<div class="input-group">-->
+    <!--<input type="password" class="form-control" id="password_confirmation"-->
+    <!--[formControl]="passwordConfirmation">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger"-->
+    <!--*ngIf="passwordConfirmation.errors?.required && !passwordConfirmation.pristine">-->
+    <!--<small> Password Confirmation required</small>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger"-->
+    <!--*ngIf="passwordConfirmation.errors?.maxlength && !passwordConfirmation.pristine">-->
+    <!--<small> Password Confirmation max is 255</small>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger"-->
+    <!--*ngIf="passwordConfirmation.value != password.value && !passwordConfirmation.pristine">-->
+    <!--<small> Password Confirmation not match Password</small>-->
+    <!--</div>-->
+    <!--<div class="form-row alert alert-danger" *ngIf="responseErrors.password_confirmation">-->
+    <!--<small> {{ responseErrors.password_confirmation }}</small>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--EMAIL-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="email">メールアドレス</label>
+                <div class="input-group">
+                    <input disabled type="text" class="form-control" id="email" [formControl]="email">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.required && !email.pristine">
+                <small> Email required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.maxlength && !email.pristine">
+                <small> Email max is 255</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="email.errors?.email && !email.pristine">
+                <small> Email is not valid</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.email">
+                <small> {{ responseErrors.email }}</small>
+            </div>
+        </div>
+
+    </div>
+    <!--PHONE-->
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <div class="form-row">
+                <label for="phone_number">電話番号</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="phone_number" [formControl]="phoneNumber">
+                </div>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="phoneNumber.errors?.required && !phoneNumber.pristine">
+                <small> Phone number required</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="phoneNumber.errors?.maxlength && !phoneNumber.pristine">
+                <small> Phone number max is 15 numbers</small>
+            </div>
+            <div class="form-row alert alert-danger" *ngIf="responseErrors.phone_number">
+                <small> {{ responseErrors.phone_number }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-3 offset-md-1 mb-3">
+            <div class="input-group">
+                <button type="submit" class="btn btn-success btn-block mb-2"><i
+                    class="fal fa-save"></i> 作成
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="input-group">
+                <button type="button" (click)="goToList()" class="btn btn-warning btn-block mb-2"><i
+                    class="fal fa-ban"></i> キャンセル
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<app-modal #modal>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goToList()">Yes</button>
+        <button type="button" class="btn btn-default btn-sm margin-left" (click)="modal.hide()">No</button>
+    </div>
+</app-modal>
+
