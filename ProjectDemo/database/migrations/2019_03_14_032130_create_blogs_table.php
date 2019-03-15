@@ -18,7 +18,6 @@ class CreateBlogsTable extends Migration
             $table->string('title');
             $table->string('content');
             $table->integer('id_category')->index()->unsigned();
-            $table->foreign('id_category')->references('id')->on('comments');
             $table->timestamps();
         });
     }

@@ -17,7 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('category');
             $table->integer('id_blog');
-            $table->foreign('id_blog')->references('id')->on('blogs');
             $table->timestamps();
         });
     }
