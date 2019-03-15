@@ -23,9 +23,9 @@ class CreateUsersTable extends Migration
             $table->text('birthday')->nullable();
             $table->string('address')->nullable();
             $table->string('job')->nullable();
-            $table->text('avatar');
-            $table->integer('id_blog')->index()->unsigned();
-            $table->integer('id_Comment')->index()->unsigned();
+            $table->text('avatar')->nullable();
+            $table->integer('id_blog')->index()->unsigned()->nullable();
+            $table->integer('id_Comment')->index()->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
